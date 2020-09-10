@@ -1,0 +1,20 @@
+{
+	"pages": [{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "LOUIS XIII",
+			"navigationStyle": "custom",
+			"app-plus": {
+				"titleNView": {
+					"type": "transparent"
+				}
+			}
+		}
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#007AFF",
+		"backgroundColor": "#FFFFFF"
+	}
+}
