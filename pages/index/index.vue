@@ -1,5 +1,8 @@
 <template>
 	<view class="container">
+		<view class="logo">
+			<img src="../../static/logo.png" class="logo-img" alt="">
+		</view>
 		<view class="block slidebox">
 			<view class="swiper-block" :class="['spacing-'+spacing]" v-if="swiperleng">
 				<swiper class="swiper-box swiper-slide" :indicator-dots="swiperleng>1?true:false" autoplay="autoplay" circular="circular"
@@ -89,12 +92,27 @@
 		background: url(../../static/bg.jpg) no-repeat 50% 50%;
 		background-size: cover;
 		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		flex-direction: column;
 	}
 
+	.logo {
+		height: 20%;
+		padding: 5% 0;
+		color: #FFFFFF;
+		font-size: 40upx;
+	}
+	.logo-img{
+		height: 100%;
+	}
 	.slidebox {
-		position: absolute;
-		bottom: 140upx;
+		/* position: absolute;
+		bottom: 140upx; */
 		width: 86%;
+		height: 60%;
 		padding: 0 7%;
 	}
 
@@ -103,8 +121,9 @@
 		border: 2px solid #ac9375;
 	}
 
-	.swiper-slide {
-		height: 970upx;
+	.swiper-slide,
+	.swiper-block {
+		height: 100%;
 	}
 
 	.swiper-item {
@@ -122,11 +141,12 @@
 	}
 
 	.slide-ov {
-		position: absolute;
+		/* position: absolute; */
+		padding: 40upx 0 0;
 		color: #fff;
 		text-align: center;
 		width: 100%;
 		font-size: 32upx;
-		bottom: 50upx;
+		/* bottom: 50upx; */
 	}
 </style>
