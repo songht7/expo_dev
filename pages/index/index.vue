@@ -4,12 +4,17 @@
 			<img src="../../static/logo.png" class="logo-img" alt="">
 		</view>
 		<view class="block slidebox">
-			<view class="swiper-block" :class="['spacing-'+spacing]" v-if="swiperleng">
-				<swiper class="swiper-box swiper-slide" :indicator-dots="swiperleng>1?true:false" autoplay="autoplay" circular="circular"
-				 interval="3000" duration="500" indicator-color="#E0E0E0" indicator-active-color="#999">
-					<swiper-item v-for="(slide,index) in swiperList" :key="index">
+			<view class="swiper-block" :class="['spacing-'+spacing]">
+				<swiper class="swiper-box swiper-slide" :indicator-dots="false" :autoplay="autoplay" circular="circular" interval="3000"
+				 duration="500" indicator-color="#E0E0E0" indicator-active-color="#999">
+					<swiper-item v-if="swiperleng" v-for="(slide,index) in swiperList" :key="index">
 						<view class="swiper-item">
-							<image class="slideImg" @click="linkTo(slide.link,slide.id)" lazy-load="true" :src="slide.original_src" mode="aspectFill"></image>
+							<image class="slideImg" lazy-load="true" :src="slide.original_src" mode="aspectFill"></image>
+						</view>
+					</swiper-item>
+					<swiper-item v-else>
+						<view class="swiper-item">
+							<image class="slideImg" lazy-load="true" src="../../static/1.jpg" mode="aspectFill"></image>
 						</view>
 					</swiper-item>
 				</swiper>
@@ -26,6 +31,7 @@
 		data() {
 			return {
 				id: 1,
+				autoplay: false,
 				swiperList: [],
 				swiperleng: 0,
 				spacing: "default" //default 、medium、big
@@ -63,8 +69,8 @@
 				data["fun"] = function(res) {
 					uni.stopPullDownRefresh()
 					if (res.success) {
-						that.swiperList = res.data.list
-						that.swiperleng = res.data.total
+						that.swiperList = res.data.list;
+						that.swiperleng = res.data.total;
 					}
 					uni.hideLoading()
 				}
@@ -105,9 +111,11 @@
 		color: #FFFFFF;
 		font-size: 40upx;
 	}
-	.logo-img{
+
+	.logo-img {
 		height: 100%;
 	}
+
 	.slidebox {
 		/* position: absolute;
 		bottom: 140upx; */
