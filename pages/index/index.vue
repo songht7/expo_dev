@@ -5,11 +5,11 @@
 		</view>
 		<view class="block slidebox">
 			<view class="swiper-block" :class="['spacing-'+spacing]">
-				<swiper class="swiper-box swiper-slide" :indicator-dots="false" :autoplay="autoplay" circular="circular" interval="3000"
+				<swiper class="swiper-box swiper-slide" :indicator-dots="false" :autoplay="autoplay" :circular="false" interval="3000"
 				 duration="500" indicator-color="#E0E0E0" indicator-active-color="#999">
 					<swiper-item v-if="swiperleng" v-for="(slide,index) in swiperList" :key="index">
 						<view class="swiper-item">
-							<image class="slideImg" lazy-load="true" :src="slide.original_src" mode="aspectFill"></image>
+							<image class="slideImg" lazy-load="true" :src="slide.original_src?sourceUrl+slide.original_src:''" mode="aspectFill"></image>
 						</view>
 					</swiper-item>
 					<swiper-item v-else>
@@ -69,8 +69,8 @@
 				data["fun"] = function(res) {
 					uni.stopPullDownRefresh()
 					if (res.success) {
-						that.swiperList = res.data.list;
-						that.swiperleng = res.data.total;
+						that.swiperList = res.data.info.image;
+						that.swiperleng = res.data.info.image.length;
 					}
 					uni.hideLoading()
 				}

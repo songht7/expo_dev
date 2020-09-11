@@ -6,13 +6,13 @@
 
 var api = {
 	"formal": {
-		"interface": "https://api.bdmartech.com", //接口
-		"domain": "http://m.bdmartech.com",
+		"interface": "http://api.meetji.com", //接口
+		"domain": "http://expo.bdmartech.com",
 		"appName": "LOUIS XIII",
 	},
 	"dev": {
-		"interface": "https://api.jobpgroup.com", //接口
-		"domain": "http://jobpgroup.com",
+		"interface": "http://api.meetji.com", //接口
+		"domain": "http://expo.bdmartech.com",
 		"appName": "LOUIS XIII",
 	}
 }
@@ -26,8 +26,7 @@ export default {
 		"appName": api[lks]["appName"],
 		"phoneNumber": api[lks]["phoneNumber"],
 		"addr": {
-			"getBasePhone": "/v4/ApiBase-phone.htm", //获取客服电话
-			"slideShow": "/v2/ApiHome-slideShow.htm", //首页列表
+			"slideShow": "/v4/ApiItem-item.htm", //列表http://api.alein.lc/v4/ApiItem-item.htm?id=1
 
 		}
 	}

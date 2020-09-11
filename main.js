@@ -8,6 +8,8 @@ App.mpType = 'app'
 import store from "./store";
 Vue.prototype.$store = store;
 
+Vue.prototype.sourceUrl = 'http://api_test.meetji.com';
+
 const app = new Vue({
 	store,
 	...App
