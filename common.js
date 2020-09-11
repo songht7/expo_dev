@@ -6,12 +6,12 @@
 
 var api = {
 	"formal": {
-		"interface": "http://api.meetji.com", //接口
+		"interface": "http://api-qrcode.meetji.com", //接口
 		"domain": "http://expo.bdmartech.com",
 		"appName": "LOUIS XIII",
 	},
 	"dev": {
-		"interface": "http://api.meetji.com", //接口
+		"interface": "http://api-qrcode.meetji.com", //接口
 		"domain": "http://expo.bdmartech.com",
 		"appName": "LOUIS XIII",
 	}
