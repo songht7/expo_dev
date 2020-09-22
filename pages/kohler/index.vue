@@ -256,7 +256,7 @@
 	}
 
 	.sign-btns {
-		width: 80%;
+		width: 75%;
 	}
 
 	.s-btn {
