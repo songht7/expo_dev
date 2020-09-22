@@ -37,25 +37,25 @@
 							</view>
 						</view>
 						<view class="sign-main" v-if="signMain">
-							<view class="s-main" v-if="mainVal==1">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==1">
 								<img class="m-img" src="../../static/kohler/liucheng.png" alt="行程安排">
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
-							<view class="s-main" v-if="mainVal==2">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==2">
 								<img class="m-img" src="../../static/kohler/address.png" alt="展厅地图">
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
-							<view class="s-main" v-if="mainVal==3">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==3">
 								<img class="m-img" src="../../static/kohler/jiudian.png" alt="酒店安排">
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
-							<view class="s-main" v-if="mainVal==4">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==4">
 								<view class="sign-form">
 									<view class="sign-input">
 										<input class="s-input" type="text" value="" placeholder="姓名" placeholder-class="sign-place" />
@@ -75,19 +75,19 @@
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
-							<view class="s-main" v-if="mainVal==5">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==5">
 								<img class="m-img" src="../../static/kohler/qrcode.png" alt="精彩瞬间">
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
-							<view class="s-main" v-if="mainVal==6">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==6">
 								<view class="mardarin">Mardarin乐队 POSTER</view>
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
-							<view class="s-main" v-if="mainVal==7">
+							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==7">
 								抽奖号
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
@@ -108,7 +108,7 @@
 				disableTouch: false,
 				vertical: true, //是否纵向
 				circular: false, //是否采用衔接滑动
-				current: 1,
+				current: 0,
 				pageDetailIndex: 1,
 				canLoop: false,
 				signBtns: true,
