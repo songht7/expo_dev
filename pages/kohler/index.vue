@@ -229,6 +229,26 @@
 		position: relative;
 	}
 
+	.container::after {
+		width: 100%;
+		height: 20%;
+		content: "INVITATION";
+		position: absolute;
+		z-index: 1;
+		bottom: 0;
+		left: 0;
+		display: flex;
+		flex-direction: row;
+		align-content: center;
+		align-items: flex-end;
+		justify-content: center;
+		line-height: 3;
+		font-size: 50upx;
+		opacity: 0.6;
+		letter-spacing: 3px;
+		color: #736c60;
+	}
+
 	.top-pic {
 		width: 100%;
 		height: 50%;
@@ -244,6 +264,8 @@
 	.swiper {
 		flex: 1;
 		min-height: 100%;
+		position: relative;
+		z-index: 50;
 	}
 
 	.swiper-item {
