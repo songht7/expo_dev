@@ -325,7 +325,7 @@
 
 	.p1i1 {
 		left: 0;
-		top: 20%;
+		bottom: 3%;
 	}
 
 	.sign-box {
@@ -333,7 +333,7 @@
 		width: 100%;
 		height: 70%;
 		left: 0;
-		bottom: 5%;
+		bottom: 3%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
