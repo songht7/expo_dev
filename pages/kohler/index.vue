@@ -333,7 +333,7 @@
 		width: 100%;
 		height: 70%;
 		left: 0;
-		top: 25%;
+		bottom: 5%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -345,7 +345,7 @@
 
 	.s-btn {
 		width: 100%;
-		margin-bottom: 40upx;
+		margin-bottom: 30upx;
 	}
 
 	.b-img {
