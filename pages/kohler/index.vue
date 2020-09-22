@@ -1,8 +1,6 @@
 <template>
 	<view class="container">
-		<view class="top-pic">
-
-		</view>
+		<view class="top-pic"></view>
 		<swiper class="swiper" :current="current" :circular="circular" :vertical="vertical" @change="onSwiperChange"
 		 :disable-touch="disableTouch">
 			<swiper-item>
@@ -58,20 +56,20 @@
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==4">
 								<view class="sign-form">
 									<view class="sign-input">
-										<input class="s-input" type="text" value="" placeholder="姓名" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['UserName']" placeholder="姓名" placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" value="" placeholder="电话" placeholder-class="sign-place" />
+										<input class="s-input" type="number" v-model="formData['UserPhone']" placeholder="电话" placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" value="" placeholder="微信" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['UserWX']" placeholder="微信" placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" value="" placeholder="公司名称" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['UserCompany']" placeholder="公司名称" placeholder-class="sign-place" />
 									</view>
 								</view>
 								<view class="m-btns">
-									<view class="m-back submit">确定</view>
+									<view class="m-back submit" @click="getData">确定</view>
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
 							</view>
@@ -102,6 +100,7 @@
 </template>
 
 <script>
+	var graceChecker = require("../../common/graceChecker.js");
 	export default {
 		data() {
 			return {
@@ -114,6 +113,14 @@
 				signBtns: true,
 				signMain: false,
 				mainVal: 0,
+				kohlerSign: "",
+				loading: false,
+				formData: {
+					UserName: "",
+					UserPhone: "",
+					UserWX: "",
+					UserCompany: ""
+				}
 
 			}
 		},
@@ -142,6 +149,61 @@
 					that.signMain = false;
 					that.signBtns = true;
 				}
+			},
+			getData() {
+				var that = this;
+				if (that.loading == true) {
+					return
+				}
+				console.log(that.formData)
+				var rule = [{
+						name: "UserName",
+						checkType: "notnull",
+						checkRule: "",
+						errorMsg: "请填写姓名"
+					},
+					{
+						name: "UserPhone",
+						checkType: "phoneno",
+						checkRule: "",
+						errorMsg: "请填写正确的手机号"
+					}
+				];
+				var checkRes = graceChecker.check(that.formData, rule);
+				that.loading = true
+				if (checkRes) {
+					// uni.request({
+					// 	url: "",
+					// 	data: {},
+					// 	method: "GET",
+					// 	header: {},
+					// 	success(res) {
+					// 		console.log("getData-success：", res)
+					// 		//result = res.data
+					// 	},
+					// 	fail(err) {
+					// 		console.log("getData-err：", err)
+					// 	},
+					// 	complete() {}
+					// })
+					that.loading = false;
+				} else {
+					uni.showToast({
+						title: graceChecker.error,
+						icon: "none"
+					});
+					that.loading = false;
+				}
+			},
+			storageCode() {
+				uni.getStorage({
+					key: "kohlerSign",
+					success: function(res) {
+						user = res.data;
+
+					},
+					fail() {}
+				})
 			}
 		}
 	}
