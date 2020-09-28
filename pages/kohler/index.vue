@@ -162,12 +162,6 @@
 		},
 		onShow() {
 			var that = this;
-			if (that.lottery.eCode != that.formData.eCode) {
-				uni.removeStorage({
-					key: 'kohlerSign',
-					success: function(res) {}
-				});
-			}
 		},
 		methods: {
 			onSwiperChange(e) {
@@ -254,7 +248,14 @@
 					key: "kohlerSign",
 					success: function(res) {
 						console.log("storageCode:", res)
-						that.lottery = res.data;
+						if (res.data.eCode != that.formData.eCode) {
+							uni.removeStorage({
+								key: 'kohlerSign',
+								success: function(res) {}
+							});
+						} else {
+							that.lottery = res.data;
+						}
 					},
 					fail() {}
 				})
