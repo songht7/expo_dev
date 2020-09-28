@@ -13,7 +13,7 @@
 	}, {
 		"path": "pages/kohler/index",
 		"style": {
-			"navigationBarTitleText": "kohler",
+			"navigationBarTitleText": "科勒无锡设计体验中心",
 			"navigationStyle": "custom",
 			"app-plus": {
 				"titleNView": {
