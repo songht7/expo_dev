@@ -56,16 +56,16 @@
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==4">
 								<view class="sign-form">
 									<view class="sign-input">
-										<input class="s-input" type="text" v-model="formData['UserName']" placeholder="姓名" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['name']" placeholder="姓名" placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="number" v-model="formData['UserPhone']" placeholder="电话" placeholder-class="sign-place" />
+										<input class="s-input" type="number" v-model="formData['phone']" placeholder="电话" placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" v-model="formData['UserWX']" placeholder="微信" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['wechat']" placeholder="微信" placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" v-model="formData['UserCompany']" placeholder="公司名称" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['company']" placeholder="公司名称" placeholder-class="sign-place" />
 									</view>
 								</view>
 								<view class="m-btns">
@@ -86,7 +86,22 @@
 								</view>
 							</view>
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==7">
-								抽奖号
+								<view class="sign-form">
+									<view class="sign-input">
+										<input class="s-input sign-info" type="text" v-model="lottery['phone']" maxlength='11' @input="getCode"
+										 placeholder="" placeholder-class="sign-place" />
+										<view class="ipt-label">
+											<img class="label-img" src="../../static/kohler/label-1.png" alt="">
+										</view>
+									</view>
+									<view class="sign-input">
+										<input class="s-input sign-info" type="number" v-model="lottery['bonusCode']" disabled placeholder=""
+										 placeholder-class="sign-place" />
+										<view class="ipt-label">
+											<img class="label-img" src="../../static/kohler/label-2.png" alt="">
+										</view>
+									</view>
+								</view>
 								<view class="m-btns">
 									<view class="m-back" @click="tap('signBtns')">返回首页</view>
 								</view>
@@ -116,17 +131,25 @@
 				kohlerSign: "",
 				loading: false,
 				formData: {
-					UserName: "",
-					UserPhone: "",
-					UserWX: "",
-					UserCompany: ""
+					// "questionnaire_id": 1,
+					"eCode": "kohler",
+					"pCode": 1111,
+					"name": "",
+					"phone": "",
+					"wechat": "",
+					"company": ""
+				},
+				lottery: {
+					"eCode": "kohler",
+					"phone": "",
+					"bonusCode": ""
 				}
-
 			}
 		},
 		components: {},
 		onLoad() {
 			var that = this;
+			that.storageCode()
 			//console.log(this.details);
 		},
 		onShow() {
@@ -155,38 +178,54 @@
 				if (that.loading == true) {
 					return
 				}
+				var _formData = that.formData;
 				console.log(that.formData)
 				var rule = [{
-						name: "UserName",
+						name: "name",
 						checkType: "notnull",
 						checkRule: "",
 						errorMsg: "请填写姓名"
 					},
 					{
-						name: "UserPhone",
+						name: "phone",
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
 					}
 				];
-				var checkRes = graceChecker.check(that.formData, rule);
+				var checkRes = graceChecker.check(_formData, rule);
 				that.loading = true
 				if (checkRes) {
-					// uni.request({
-					// 	url: "",
-					// 	data: {},
-					// 	method: "GET",
-					// 	header: {},
-					// 	success(res) {
-					// 		console.log("getData-success：", res)
-					// 		//result = res.data
-					// 	},
-					// 	fail(err) {
-					// 		console.log("getData-err：", err)
-					// 	},
-					// 	complete() {}
-					// })
-					that.loading = false;
+					let data = {
+						"inter": "saveSign",
+						"method": "POST",
+						"data": _formData,
+						"interType": "i2",
+						"parm": "",
+					}
+					data["fun"] = function(res) {
+						if (res.success) {
+							that.lottery.phone = _formData.phone;
+							that.getCode();
+							uni.showToast({
+								title: "签到成功",
+								icon: "success",
+								complete() {
+									setTimeout(() => {
+										that.tap('signMain', '7');
+									}, 1000)
+								}
+							});
+						} else {
+							uni.showToast({
+								title: "签到失败，请重试！",
+								icon: "none"
+							});
+						}
+						that.loading = false;
+					}
+					console.log(data)
+					that.$store.dispatch("getData", data)
 				} else {
 					uni.showToast({
 						title: graceChecker.error,
@@ -196,14 +235,58 @@
 				}
 			},
 			storageCode() {
+				var that = this;
 				uni.getStorage({
 					key: "kohlerSign",
 					success: function(res) {
-						user = res.data;
-
+						console.log("storageCode:", res)
+						that.lottery = res.data;
 					},
 					fail() {}
 				})
+			},
+			getCode() {
+				var that = this;
+				var _data = that.lottery;
+				var rule = [{
+					name: "phone",
+					checkType: "phoneno",
+					checkRule: "",
+					errorMsg: "请填写正确的手机号"
+				}];
+				var checkRes = graceChecker.check(_data, rule);
+				if (checkRes) {
+					let data = {
+						"inter": "getSign",
+						"interType": "i2",
+						"parm": `?phone=${_data.phone}&eCode=${_data.eCode}`,
+					}
+					data["fun"] = function(res) {
+						if (res.success) {
+							console.log("=====res====", res);
+							that.lottery.bonusCode = res.data.signed.data.overview_json.bonusCode;
+							if (res.data.signed.count <= 0) {
+								uni.showToast({
+									title: "无搜索结果",
+									icon: "none"
+								});
+								that.lottery.bonusCode = "";
+							} else {
+								uni.setStorage({
+									key: 'kohlerSign',
+									data: that.lottery,
+									success: function() {}
+								});
+							}
+						} else {
+							uni.showToast({
+								title: "查询失败！",
+								icon: "none"
+							});
+						}
+					}
+					that.$store.dispatch("getData", data)
+				}
 			}
 		}
 	}
@@ -382,6 +465,12 @@
 		padding: 30upx;
 	}
 
+	.sign-info {
+		text-align: center;
+		padding: 24upx;
+		font-size: 42upx;
+	}
+
 	.sign-place {
 		color: #efbc96;
 		font-size: 36upx;
@@ -420,5 +509,17 @@
 	.animate_icon {
 		animation-iteration-count: infinite;
 		animation-direction: alternate
+	}
+
+	.ipt-label {
+		width: 100%;
+		height: 36upx;
+		padding: 20upx 0;
+		text-align: center;
+	}
+
+	.label-img {
+		height: 100%;
+		width: auto;
 	}
 </style>

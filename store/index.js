@@ -41,7 +41,8 @@ const store = new Vuex.Store({
 		getData(ctx, parm) {
 			ctx.commit("switch_loading", "1")
 			let _parm = parm.parm || '';
-			let _url = ctx.state.interface.apiurl + ctx.state.interface.addr[parm.inter] + _parm
+			let api = parm.interType ? ctx.state.interface[parm.interType] : ctx.state.interface.apiurl;
+			let _url = api + ctx.state.interface.addr[parm.inter] + _parm
 			console.log("getData-url-", parm.inter, "：", _url)
 			console.log("getData-parm-", parm.inter, "：", parm)
 			var result = [];
