@@ -441,8 +441,8 @@
 	}
 
 	.sign-box-f-top {
-		bottom: auto;
-		top: 40upx;
+		position: static;
+		padding-top: 50upx;
 	}
 
 	.sign-btns {
