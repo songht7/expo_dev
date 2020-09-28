@@ -272,7 +272,6 @@
 					data["fun"] = function(res) {
 						if (res.success) {
 							console.log("=====res====", res);
-							that.lottery.bonusCode = res.data.signed.data.overview_json.bonusCode;
 							if (res.data.signed.count <= 0) {
 								uni.showToast({
 									title: "无搜索结果",
@@ -280,6 +279,7 @@
 								});
 								that.lottery.bonusCode = "";
 							} else {
+								that.lottery.bonusCode = res.data.signed.data.overview_json.bonusCode;
 								uni.setStorage({
 									key: 'kohlerSign',
 									data: that.lottery,
