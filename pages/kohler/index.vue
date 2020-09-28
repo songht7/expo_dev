@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="top-pic"></view>
+		<view class="top-pic" v-show="!inputFocus"></view>
 		<swiper class="swiper" :current="current" :circular="circular" :vertical="vertical" @change="onSwiperChange"
 		 :disable-touch="disableTouch">
 			<swiper-item>
@@ -10,7 +10,7 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="pages pages-2 ">
-					<view class="sign-box">
+					<view :class="['sign-box',inputFocus?'sign-box-f-top':'']">
 						<view class="sign-btns" v-if="signBtns">
 							<view class="s-btn s-btn-1" @click="tap('signMain','1')">
 								<img class="b-img" src="../../static/kohler/b1.png" alt="行程安排">
@@ -56,16 +56,20 @@
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==4">
 								<view class="sign-form">
 									<view class="sign-input">
-										<input class="s-input" type="text" v-model="formData['name']" placeholder="姓名" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['name']" @focus="onFocus" @blur="onBlur" placeholder="姓名"
+										 placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="number" v-model="formData['phone']" placeholder="电话" placeholder-class="sign-place" />
+										<input class="s-input" type="number" v-model="formData['phone']" @focus="onFocus" @blur="onBlur" placeholder="电话"
+										 placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" v-model="formData['wechat']" placeholder="微信" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['wechat']" @focus="onFocus" @blur="onBlur" placeholder="微信"
+										 placeholder-class="sign-place" />
 									</view>
 									<view class="sign-input">
-										<input class="s-input" type="text" v-model="formData['company']" placeholder="公司名称" placeholder-class="sign-place" />
+										<input class="s-input" type="text" v-model="formData['company']" @focus="onFocus" @blur="onBlur" placeholder="公司名称"
+										 placeholder-class="sign-place" />
 									</view>
 								</view>
 								<view class="m-btns">
@@ -88,8 +92,8 @@
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==7">
 								<view class="sign-form">
 									<view class="sign-input">
-										<input class="s-input sign-info" type="text" v-model="lottery['phone']" maxlength='11' @input="getCode"
-										 placeholder="" placeholder-class="sign-place" />
+										<input class="s-input sign-info" type="text" v-model="lottery['phone']" @focus="onFocus" @blur="onBlur"
+										 maxlength='11' @input="getCode" placeholder="" placeholder-class="sign-place" />
 										<view class="ipt-label">
 											<img class="label-img" src="../../static/kohler/label-1.png" alt="">
 										</view>
@@ -120,6 +124,7 @@
 		data() {
 			return {
 				disableTouch: false,
+				inputFocus: false, //输入框是伐获取焦点
 				vertical: true, //是否纵向
 				circular: false, //是否采用衔接滑动
 				current: 0,
@@ -147,8 +152,11 @@
 			}
 		},
 		components: {},
-		onLoad() {
+		onLoad(e) {
 			var that = this;
+			var ecode = e.ecode ? e.ecode : "kohler";
+			that.formData.eCode = ecode;
+			that.lottery.eCode = ecode;
 			that.storageCode()
 			//console.log(this.details);
 		},
@@ -287,6 +295,12 @@
 					}
 					that.$store.dispatch("getData", data)
 				}
+			},
+			onFocus() {
+				this.inputFocus = true;
+			},
+			onBlur() {
+				this.inputFocus = false;
 			}
 		}
 	}
@@ -342,6 +356,10 @@
 		/* z-index: 10; */
 		top: 0;
 		left: 0;
+	}
+
+	.top-pic-no-bg {
+		background: none;
 	}
 
 	.swiper {
@@ -420,6 +438,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.sign-box-f-top {
+		bottom: auto;
+		top: 40upx;
 	}
 
 	.sign-btns {
