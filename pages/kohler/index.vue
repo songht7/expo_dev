@@ -92,7 +92,7 @@
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==7">
 								<view class="sign-form">
 									<view class="sign-input">
-										<input class="s-input sign-info" type="text" v-model="lottery['phone']" @focus="onFocus" @blur="onBlur"
+										<input class="s-input sign-info" type="number" v-model="lottery['phone']" @focus="onFocus" @blur="onBlur"
 										 maxlength='11' @input="getCode" placeholder="" placeholder-class="sign-place" />
 										<view class="ipt-label">
 											<img class="label-img" src="../../static/kohler/label-1.png" alt="">
