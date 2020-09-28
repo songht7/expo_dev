@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="top-pic" v-show="!inputFocus"></view>
+		<view :class="['top-pic',inputFocus?'top-pic-bg-blur':'']"></view>
 		<swiper class="swiper" :current="current" :circular="circular" :vertical="vertical" @change="onSwiperChange"
 		 :disable-touch="disableTouch">
 			<swiper-item>
@@ -158,6 +158,7 @@
 			that.formData.eCode = ecode;
 			that.lottery.eCode = ecode;
 			that.storageCode()
+			that.$store.dispatch("getSystemInfo")
 			//console.log(this.details);
 		},
 		onShow() {
@@ -304,7 +305,10 @@
 				}
 			},
 			onFocus() {
-				this.inputFocus = true;
+				let platform = this.$store.state.systemInfo.platform;
+				if (platform != "ios") {
+					this.inputFocus = true;
+				}
 			},
 			onBlur() {
 				this.inputFocus = false;
@@ -365,8 +369,10 @@
 		left: 0;
 	}
 
-	.top-pic-no-bg {
-		background: none;
+	.top-pic-bg-blur {
+		/* background: none; */
+		filter: blur(3px);
+		opacity: 0;
 	}
 
 	.swiper {
@@ -449,11 +455,11 @@
 
 	.sign-box-f-top {
 		position: static;
-		padding-top: 50upx;
+		margin-top: 100upx
 	}
 
 	.sign-btns {
-		width: 75%;
+		width: 68%;
 	}
 
 	.s-btn {
