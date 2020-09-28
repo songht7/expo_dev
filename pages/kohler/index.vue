@@ -162,6 +162,12 @@
 		},
 		onShow() {
 			var that = this;
+			if (that.lottery.eCode != that.formData.eCode) {
+				uni.removeStorage({
+					key: 'kohlerSign',
+					success: function(res) {}
+				});
+			}
 		},
 		methods: {
 			onSwiperChange(e) {
