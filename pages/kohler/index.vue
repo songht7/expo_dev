@@ -27,9 +27,9 @@
 							<view class="s-btn s-btn-5" @click="tap('signMain','5')">
 								<img class="b-img" src="../../static/kohler/b5.png" alt="精彩瞬间">
 							</view>
-							<view class="s-btn s-btn-6" @click="tap('signMain','6')">
+							<!-- <view class="s-btn s-btn-6" @click="tap('signMain','6')">
 								<img class="b-img" src="../../static/kohler/b6.png" alt="Who is Mardarin?">
-							</view>
+							</view> -->
 							<view class="s-btn s-btn-7" @click="tap('signMain','7')">
 								<img class="b-img" src="../../static/kohler/b7.png" alt="抽奖号">
 							</view>
