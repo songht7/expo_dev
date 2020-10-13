@@ -30,9 +30,9 @@
 							<!-- <view class="s-btn s-btn-6" @click="tap('signMain','6')">
 								<img class="b-img" src="../../static/kohler/b6.png" alt="Who is Mardarin?">
 							</view> -->
-							<view class="s-btn s-btn-7" @click="tap('signMain','7')">
+							<!-- <view class="s-btn s-btn-7" @click="tap('signMain','7')">
 								<img class="b-img" src="../../static/kohler/b7.png" alt="抽奖号">
-							</view>
+							</view> -->
 						</view>
 						<view class="sign-main" v-if="signMain">
 							<view class="s-main animate__animated animate__fadeIn animate__slow" v-if="mainVal==1">
@@ -215,14 +215,14 @@
 					data["fun"] = function(res) {
 						if (res.success) {
 							that.lottery.phone = _formData.phone;
-							that.getCode();
+							// that.getCode();
 							uni.showToast({
 								title: "签到成功",
 								icon: "success",
 								complete() {
-									setTimeout(() => {
-										that.tap('signMain', '7');
-									}, 1000)
+									// setTimeout(() => {
+									// 	that.tap('signMain', '7');
+									// }, 1000)
 								}
 							});
 						} else {
